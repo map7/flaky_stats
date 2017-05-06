@@ -36,5 +36,6 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/map7/f
 
 ## Ref
 
-http://andyatkinson.com/blog/2014/06/23/sharing-rake-tasks-in-gems
+http://blog.nathanhumbert.com/2010/02/rails-3-loading-rake-tasks-from-gem.html
+
 
