@@ -1,5 +1,5 @@
 require "flaky_stats/version"
 
 module FlakyStats
-  # Your code goes here...
+  require 'flaky_stats/railtie' if defined?(Rails)
 end
