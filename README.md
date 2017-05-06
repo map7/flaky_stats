@@ -1,8 +1,8 @@
 # FlakyStats
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/flaky_stats`. To experiment with that code, run `bin/console` for an interactive prompt.
+Collects broken tests from a parallel failing test log, uses them to rerun the flaky tests and if they pass whilst running them on their own add them to the flaky_stats.log file.
 
-TODO: Delete this and the text above, and describe your gem
+At the end of the tests we can display a flaky stats summary which should display the top flaky tests in order of the most flakiest.
 
 ## Installation
 
@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    $ rake parallel:rerun
 
 ## Development
 
@@ -33,4 +33,8 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/map7/flaky_stats.
+
+## Ref
+
+http://andyatkinson.com/blog/2014/06/23/sharing-rake-tasks-in-gems
 
