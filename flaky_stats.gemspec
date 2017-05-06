@@ -7,11 +7,12 @@ Gem::Specification.new do |spec|
   spec.name          = "flaky_stats"
   spec.version       = FlakyStats::VERSION
   spec.authors       = ["Michael Pope"]
-  spec.email         = ["map7@corsairsolutions.com.au"]
+  spec.email         = ["michael@dtcorp.com.au"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{Records flaky tests}
+  spec.description   = %q{Flaky stats will rerun broken tests from your parallel tests and if they pass then they must be flaky so it records them.}
+  spec.homepage      = "http://github.com/map7/flaky_stats"
+  spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
