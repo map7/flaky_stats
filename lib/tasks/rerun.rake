@@ -78,17 +78,16 @@ def display_flaky_summary
   puts "\n"
 end
 
-namespace :parallel do 
-  desc "Rerun failing parallel tests in a single thread"
-  task :rerun => :environment do  |t|
-    if File.exist?(FAILING_LOG)
-      delete_failing_log = run_flaky_tests(read_failing_log)
-      
-      display_error_summary
-      display_flaky_summary
+desc "Rerun failing parallel tests in a single thread"
+task :rerun => :environment do  |t|
+  puts 'hi'
+  if File.exist?(FAILING_LOG)
+    delete_failing_log = run_flaky_tests(read_failing_log)
+    
+    display_error_summary
+    display_flaky_summary
 
-      # Remove flaky log if everything passed
-      File.delete(FAILING_LOG) if delete_failing_log
-    end
+    # Remove flaky log if everything passed
+    File.delete(FAILING_LOG) if delete_failing_log
   end
 end
