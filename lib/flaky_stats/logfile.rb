@@ -5,11 +5,18 @@
 
 module FlakyStats
   class LogFile
-    def initialize(options)
+    def initialize(options = {})
       @failing_log = options[:failing_log]
       @logfile = options[:logfile]
     end
 
+    def get_error_info(line)
+      information= line.partition(/\.\/.*.rb/)
+      filename = information[1]
+      lineno = information[2].partition(/:/)[2].to_i
+      return {filename: filename, lineno: lineno}
+    end
+    
     # Read the failing log from our test stack
     def read_failing_log()
       failed_files = []
