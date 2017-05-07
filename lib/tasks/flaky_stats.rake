@@ -3,23 +3,6 @@ require 'csv'
 LOGFILE=Rails.root + "log/flaky_tests.log"
 FAILING_LOG=Rails.root + "tmp/failing_specs.log"
 
-def read_failing_log
-  failed_files = []
-
-  # Read in the file
-  file = File.readlines(FAILING_LOG)
-
-  # Get lines which begin with rspec
-  file.each do |line|
-    if line =~ /rspec \.\//
-      # Get the file name only
-      failed_files << line.partition(/\.\/.*.rb/)[1]
-    end
-  end
-
-  return failed_files
-end
-
 def run_flaky_tests(failed_files)
   puts "\n\n"
   puts "------------------------------------------------------------------------"
@@ -81,7 +64,11 @@ end
 desc "Rerun failing parallel tests in a single thread"
 task :flaky_stats => :environment do  |t|
   if File.exist?(FAILING_LOG)
-    delete_failing_log = run_flaky_tests(read_failing_log)
+
+    logfile = FlakyStats::LogFile.new()
+    failed_files = logfile.read_failing_log(FAILING_LOG)
+    
+    delete_failing_log = run_flaky_tests(failed_files)
     
     display_error_summary
     display_flaky_summary
