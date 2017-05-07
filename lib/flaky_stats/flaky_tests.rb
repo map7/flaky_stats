@@ -5,6 +5,7 @@ module FlakyStats
       @logfile = options[:logfile]
     end
 
+    # Run each failing test singularly and return a list of flaky tests.
     def run(failed_files)
       puts "\n\n"
       puts "-------------------------------------------------------------------"
