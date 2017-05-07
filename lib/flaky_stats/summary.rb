@@ -21,10 +21,12 @@ module FlakyStats
     def calc_flaky_summary
       sum=Hash.new(0)
       CSV.foreach(@logfile) do |row|
-        sum[row[1]]+=row[2].to_i
+        sum[row[1]]+=row[3].to_i
       end
       return sum
     end
+
+
     
     def display_flaky_summary
       puts "\n\n"
