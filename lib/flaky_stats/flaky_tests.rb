@@ -1,5 +1,5 @@
 module FlakyStats
-  class Tests
+  class FlakyTests
 
     def initialize(options)
       @logfile = options[:logfile]
