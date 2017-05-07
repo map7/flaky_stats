@@ -22,9 +22,9 @@ end
 
 def run_flaky_tests(failed_files)
   puts "\n\n"
-  puts "------------------------------------------------------------------------".red
-  puts "Rerunning failing tests in single thread".red
-  puts "------------------------------------------------------------------------".red
+  puts "------------------------------------------------------------------------"
+  puts "Rerunning failing tests in single thread"
+  puts "------------------------------------------------------------------------"
   
   delete_failing_log = true
 
@@ -51,9 +51,9 @@ end
 
 def display_error_summary
   puts "\n\n"
-  puts "------------------------------------------------------------------------".red
-  puts "Errors summary".red
-  puts "------------------------------------------------------------------------".red
+  puts "------------------------------------------------------------------------"
+  puts "Errors summary"
+  puts "------------------------------------------------------------------------"
 
   system("cat #{FAILING_LOG}")
 end
@@ -68,9 +68,9 @@ end
 
 def display_flaky_summary
   puts "\n\n"
-  puts "------------------------------------------------------------------------".red
-  puts "Flaky summary".red
-  puts "------------------------------------------------------------------------".red
+  puts "------------------------------------------------------------------------"
+  puts "Flaky summary"
+  puts "------------------------------------------------------------------------"
 
   calc_flaky_summary.each do |k,v|
     puts "#{k} = #{v}" if v > 1
@@ -80,7 +80,6 @@ end
 
 desc "Rerun failing parallel tests in a single thread"
 task :rerun => :environment do  |t|
-  puts 'hi'
   if File.exist?(FAILING_LOG)
     delete_failing_log = run_flaky_tests(read_failing_log)
     
