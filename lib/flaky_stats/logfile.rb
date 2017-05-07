@@ -10,6 +10,7 @@ module FlakyStats
       @logfile = options[:logfile]
     end
 
+    # Read the failing log from our test stack
     def read_failing_log()
       failed_files = []
 
@@ -27,6 +28,7 @@ module FlakyStats
       return failed_files
     end
 
+    # Log flaky stats
     def write_flaky_stats(real_flaky_tests)
       File.open(@logfile, "a") do |log|
         real_flaky_tests.each {|data| log.puts data}
