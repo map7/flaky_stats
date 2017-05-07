@@ -5,7 +5,7 @@ module FlakyStats
     railtie_name :flaky_stats
 
     rake_tasks do
-      load "tasks/rerun.rake"
+      load "tasks/flaky_stats.rake"
     end
   end
 end

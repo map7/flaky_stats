@@ -79,7 +79,7 @@ def display_flaky_summary
 end
 
 desc "Rerun failing parallel tests in a single thread"
-task :rerun => :environment do  |t|
+task :flaky_stats => :environment do  |t|
   if File.exist?(FAILING_LOG)
     delete_failing_log = run_flaky_tests(read_failing_log)
     
