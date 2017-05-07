@@ -7,32 +7,27 @@ module FlakyStats
 
     # Run each failing test singularly and return a list of flaky tests.
     def run(failed_files)
+      real_flaky_tests = []
+
       puts "\n\n"
       puts "-------------------------------------------------------------------"
       puts "Rerunning failing tests in single thread"
       puts "-------------------------------------------------------------------"
       
-      delete_failing_log = true
+      # sleep 10                   # Settle everything down.
 
-      sleep 10                   # Settle everything down.
-      
-      File.open(@logfile, "a") do |log|
-        # Run all failing tests separately with '--format doc' on the end.
-        failed_files.each do |failed_file|
-          sleep 2                   # Settle everything down.
-          
-          status = system("rspec --format doc #{failed_file}")
+      # Run all failing tests separately with '--format doc' on the end.
+      failed_files.each do |failed_file|
+        # sleep 2                   # Settle everything down.
+        status = system("rspec --format doc #{failed_file}")
 
-          delete_failing_log = false if status == false
-          
-          if status == true
-            # This is a flaky test only, so record it
-            log.puts "#{Time.now},#{failed_file},1"
-          end
+        # This is a flaky test only, so record it
+        if status == true
+          real_flaky_tests << "#{Time.now},#{failed_file},1"
         end
       end
 
-      return delete_failing_log
+      return real_flaky_tests
     end
   end  
 end
