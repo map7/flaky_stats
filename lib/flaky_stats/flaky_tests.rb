@@ -5,7 +5,7 @@ module FlakyStats
       @logfile = options[:logfile]
     end
 
-    def run_flaky_tests(failed_files)
+    def run(failed_files)
       puts "\n\n"
       puts "-------------------------------------------------------------------"
       puts "Rerunning failing tests in single thread"

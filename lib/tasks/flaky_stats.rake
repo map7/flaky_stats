@@ -10,8 +10,8 @@ task :flaky_stats => :environment do  |t|
     logfile = FlakyStats::LogFile.new(failing_log: FAILING_LOG)
     failed_files = logfile.read_failing_log()
 
-    tests = FlakyStats::FlakyTests.new(logfile: LOGFILE)
-    tests.run_flaky_tests(failed_files)
+    flaky_tests = FlakyStats::FlakyTests.new(logfile: LOGFILE)
+    flaky_tests.run(failed_files)
 
     summary = FlakyStats::Summary.new(failing_log: FAILING_LOG,
                                       logfile: LOGFILE)
