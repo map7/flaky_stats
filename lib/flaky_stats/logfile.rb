@@ -5,12 +5,15 @@
 
 module FlakyStats
   class LogFile
+    def initialize(options)
+      @failing_log = options[:failing_log]
+    end
 
-    def read_failing_log(failing_log)
+    def read_failing_log()
       failed_files = []
 
       # Read in the file
-      file = File.readlines(failing_log)
+      file = File.readlines(@failing_log)
 
       # Get lines which begin with rspec
       file.each do |line|
