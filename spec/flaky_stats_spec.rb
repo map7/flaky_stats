@@ -19,5 +19,9 @@ RSpec.describe FlakyStats do
     it "includes filename" do 
       expect(@flaky_tests.form_data(@failed_file)[1]).to eq("foo_spec.rb")
     end
+
+    it "includes lineno" do 
+      expect(@flaky_tests.form_data(@failed_file)[2]).to eq("12")
+    end
   end
 end
