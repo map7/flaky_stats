@@ -1,5 +1,6 @@
 require "bundler/setup"
 require "flaky_stats"
+require 'timecop'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
