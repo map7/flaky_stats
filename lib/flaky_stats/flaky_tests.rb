@@ -1,8 +1,12 @@
 module FlakyStats
   class FlakyTests
 
-    def initialize(options)
+    def initialize(options = {})
       @logfile = options[:logfile]
+    end
+
+    def form_data
+      Time.now
     end
 
     # Run each failing test singularly and return a list of flaky tests.
@@ -19,11 +23,11 @@ module FlakyStats
       # Run all failing tests separately with '--format doc' on the end.
       failed_files.each do |failed_file|
         # sleep 2                   # Settle everything down.
-        status = system("rspec --format doc #{failed_file}")
+        status = system("rspec --format doc #{failed_file[:filename]}")
 
         # This is a flaky test only, so record it
         if status == true
-          real_flaky_tests << "#{Time.now},#{failed_file},1"
+          real_flaky_tests << "#{Time.now},#{failed_file[:filename]},#{failed_file[:lineno]},1"
         end
       end
 

@@ -26,8 +26,6 @@ module FlakyStats
       return sum
     end
 
-
-    
     def display_flaky_summary
       puts "\n\n"
       puts "-------------------------------------------------------------------"
