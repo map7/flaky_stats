@@ -5,8 +5,8 @@ module FlakyStats
       @logfile = options[:logfile]
     end
 
-    def form_data
-      Time.now
+    def form_data(failed_file = {})
+      return Time.now,failed_file[:filename]
     end
 
     # Run each failing test singularly and return a list of flaky tests.
