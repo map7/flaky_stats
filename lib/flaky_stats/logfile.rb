@@ -28,7 +28,7 @@ module FlakyStats
       file.each do |line|
         if line =~ /rspec \.\//
           # Get the file name only
-          failed_files << line.partition(/\.\/.*.rb/)[1]
+          failed_files << get_error_info(line)
         end
       end
 
