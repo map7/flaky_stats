@@ -1,11 +1,20 @@
 require "spec_helper"
 
 RSpec.describe FlakyStats do
-  it "has a version number" do
-    expect(FlakyStats::VERSION).not_to be nil
-  end
+  describe "#form_data" do
+    before do 
+      Timecop.freeze(Time.now)
+    end
 
-  it "does something useful" do
-    expect(false).to eq(true)
+    after do 
+      Timecop.return
+    end
+    
+    it "includes datetime" do
+      flaky_tests = FlakyStats::FlakyTests.new
+      expect(flaky_tests.form_data).to eq(Time.now)
+    end
+
+    
   end
 end
