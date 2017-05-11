@@ -6,7 +6,7 @@ module FlakyStats
     end
 
     def form_data(failed_file = {})
-      return Time.now,failed_file[:filename],failed_file[:lineno]
+      return [Time.now,failed_file[:filename],failed_file[:lineno],1].join ","
     end
 
     # Run each failing test singularly and return a list of flaky tests.
@@ -27,7 +27,7 @@ module FlakyStats
 
         # This is a flaky test only, so record it
         if status == true
-          real_flaky_tests << "#{Time.now},#{failed_file[:filename]},#{failed_file[:lineno]},1"
+          real_flaky_tests << form_data(failed_file)
         end
       end
 
