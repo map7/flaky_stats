@@ -34,6 +34,12 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/map7/flaky_stats.
 
+## TODO
+
+- Get working with more than parallel tests
+- Test on CI environments
+- More tests
+
 ## Ref
 
 http://blog.nathanhumbert.com/2010/02/rails-3-loading-rake-tasks-from-gem.html
