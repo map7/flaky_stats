@@ -17,10 +17,13 @@ task :flaky_stats => :environment do  |t|
 
     # Write out the log file of real flaky tests
     logfile.write_flaky_stats(real_flaky_tests)
-    
+
     # Display summaries
     summary = FlakyStats::Summary.new(failing_log: FAILING_LOG, logfile: LOGFILE)
     summary.display_error_summary()
     summary.display_flaky_summary()
+
+    # Rollover logfile
+    summary.rollover_and_write()
   end
 end
