@@ -1,4 +1,5 @@
 require_relative "output"
+require 'csv'
 
 # Summary
 #
@@ -23,16 +24,19 @@ module FlakyStats
       CSV.foreach(@logfile) do |row|
         sum[row[1]]+=row[3].to_i
       end
-      return sum
+      return order_stats(sum)
     end
 
     def display_flaky_summary
       heading "Flaky summary"
-
       calc_flaky_summary.each do |k,v|
         puts "#{k} = #{v}" if v > 1
       end
       puts "\n"
+    end
+
+    def order_stats(hash)
+      hash.sort_by{|key,value| value}.reverse.to_h
     end
   end
 end

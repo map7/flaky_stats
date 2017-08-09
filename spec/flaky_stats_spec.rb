@@ -39,7 +39,4 @@ RSpec.describe FlakyStats do
     end
   end
 
-  describe "#format_output" do
-    
-  end
 end
