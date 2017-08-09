@@ -1,0 +1,15 @@
+2017-08-02 11:57:30 +1000,./spec/integration/invoices/create_a_debtor_within_invoice_spec.rb,27,1
+2017-08-03 12:36:50 +1000,./spec/integration/timesheets/index_timesheets_spec.rb,74,1
+2017-08-03 12:37:17 +1000,./spec/integration/invoices/edit_invoices_spec.rb,27,1
+2017-08-03 15:12:58 +1000,./spec/integration/timesheets/index_timesheets_spec.rb,74,1
+2017-08-03 15:13:17 +1000,./spec/integration/accounts/create_accounts_spec.rb,9,1
+2017-08-03 16:05:19 +1000,./spec/integration/timesheets/index_timesheets_spec.rb,74,1
+2017-08-08 10:37:25 +1000,./spec/integration/invoices/create_a_debtor_within_invoice_spec.rb,27,1
+2017-08-08 10:37:49 +1000,./spec/integration/transactions/create_sale_with_discount_spec.rb,21,1
+2017-08-08 10:38:15 +1000,./spec/integration/timesheets/index_timesheets_spec.rb,74,1
+2017-08-08 13:30:56 +1000,./spec/integration/timesheets/index_timesheets_spec.rb,74,1
+2017-08-08 15:51:38 +1000,./spec/integration/timesheets/index_timesheets_spec.rb,74,1
+2017-08-08 16:28:59 +1000,./spec/integration/invoices/edit_invoices_spec.rb,27,1
+2017-08-09 10:37:49 +1000,./spec/integration/timesheets/index_timesheets_spec.rb,74,1
+2017-08-09 14:10:45 +1000,./spec/integration/timesheets/index_timesheets_spec.rb,74,1
+2017-08-09 14:29:25 +1000,./spec/integration/jobs/delete_jobs_spec.rb,12,1

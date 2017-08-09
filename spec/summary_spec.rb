@@ -1,8 +1,10 @@
 require "spec_helper"
+require 'byebug'
 
 RSpec.describe "Summary" do
-  before do 
-    @summary = FlakyStats::Summary.new(logfile: "#{File.dirname(__FILE__)}/files/flaky_tests.log")
+  before do
+    @logfile = "#{File.dirname(__FILE__)}/files/flaky_tests.log"
+    @summary = FlakyStats::Summary.new(logfile: @logfile)
   end
 
   describe "#calc_flaky_summary" do 
@@ -12,6 +14,44 @@ RSpec.describe "Summary" do
     end
   end
 
+  describe "#rollover" do
+    before do
+      Timecop.freeze(Time.local(2017, 8, 9, 16, 0, 0))
+    end
+
+    after do 
+      Timecop.return
+    end
+    
+    it "removes old flaky tests from the logfile" do 
+      output = "#{File.dirname(__FILE__)}/files/flaky_tests_output.log"
+
+      expect(File.readlines(@logfile).count).to eq(27)
+      result = @summary.rollover
+
+      expect(result.count).to eq(15)
+    end
+  end
+
+  describe "#rollover_and_write" do 
+    before do
+      Timecop.freeze(Time.local(2017, 8, 9, 16, 0, 0))
+    end
+
+    after do 
+      Timecop.return
+    end
+    
+    it "removes old flaky tests from the logfile" do 
+      output = "#{File.dirname(__FILE__)}/files/flaky_tests_output.log"
+
+      expect(File.readlines(@logfile).count).to eq(27)
+      @summary.rollover_and_write(output: output)
+      
+      expect(File.readlines(output).count).to eq(15)
+    end
+  end
+  
   describe "#reject_low_flaky_tests" do 
     it "remove flaky tests which have only happened once" do 
       data = {"file1" => 2, "file2" => 3, "file3" => 1}

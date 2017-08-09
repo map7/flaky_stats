@@ -8,6 +8,7 @@ require 'csv'
 module FlakyStats
   class Summary
     include Output
+    DEFAULT_ROLLOVER_DAYS = 7
     
     def initialize(options)
       @failing_log = options[:failing_log]
@@ -33,6 +34,26 @@ module FlakyStats
         puts "#{v}\t#{k}"
       end
       puts "\n"
+    end
+
+    def rollover(days = DEFAULT_ROLLOVER_DAYS)
+      lines = File.readlines(@logfile)
+      lines.reject{|line|
+        flaky_date = Time.parse(line.split(",")[0]).to_date
+        cutoff = Date.today - days
+        flaky_date < cutoff
+      }
+    end
+
+    def rollover_and_write(options)
+      days = options[:days] || DEFAULT_ROLLOVER_DAYS
+      output = options[:output] || @logfile
+
+      File.open(output, "w") {|file|
+        rollover(days).each do |flaky|
+          file.write flaky  
+        end        
+      }
     end
 
     def reject_low_flaky_tests(data)
