@@ -2,12 +2,14 @@ require "spec_helper"
 require 'date'
 
 RSpec.describe FlakyStats do
+  before do 
+    @flaky_tests = FlakyStats::FlakyTests.new
+  end
   
   describe "#form_data" do
     before do
       @time=Time.now
       Timecop.freeze(@time)
-      @flaky_tests = FlakyStats::FlakyTests.new
       @failed_file = {filename: "foo_spec.rb", lineno: "12"}
     end
 
@@ -32,12 +34,12 @@ RSpec.describe FlakyStats do
   end
 
   describe "#run" do
-    before do 
-      @flaky_tests = FlakyStats::FlakyTests.new
-    end
-    
     it "should print a heading on the screen" do 
       expect{@flaky_tests.run()}.to output(/Rerunning failing tests in single thread/).to_stdout
     end
+  end
+
+  describe "#format_output" do
+    
   end
 end
