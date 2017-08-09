@@ -12,6 +12,14 @@ RSpec.describe "Summary" do
     end
   end
 
+  describe "#reject_low_flaky_tests" do 
+    it "remove flaky tests which have only happened once" do 
+      data = {"file1" => 2, "file2" => 3, "file3" => 1}
+      result = @summary.reject_low_flaky_tests(data)
+      expect(result.count).to eq(2)
+    end
+  end
+
   describe "#order_stats" do 
     it "orders from most to least frequent flaky test" do
       data = {"file1" => 2, "file2" => 3, "file3" => 1}

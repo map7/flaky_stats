@@ -29,12 +29,16 @@ module FlakyStats
 
     def display_flaky_summary
       heading "Flaky summary"
-      calc_flaky_summary.each do |k,v|
-        puts "#{v}\t#{k}" if v > 1
+      reject_low_flaky_tests(calc_flaky_summary).each do |k,v|
+        puts "#{v}\t#{k}"
       end
       puts "\n"
     end
 
+    def reject_low_flaky_tests(data)
+      data.reject{|k,v| v <= 1}
+    end
+    
     def order_stats(hash)
       hash.sort_by{|key,value| value}.reverse.to_h
     end
