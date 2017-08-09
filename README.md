@@ -38,8 +38,6 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/map7/f
 
 - Create a rake task to show the flaky test summary
 - Get working with more than parallel tests
-- Remove old flaky tests after one month
-  The reason for this is we don't want to see old flaky tests. The stats should be rolling and current this way we get to see the latest flaky tests.
 - Test on CI environments
 - Do away with the ',1' on the end of our data
   This 1 on the end of each data line in the file is for a quick calculation, if this can be done without this then we can simplify our data.
