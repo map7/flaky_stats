@@ -41,7 +41,7 @@ RSpec.describe "Summary" do
     after do 
       Timecop.return
     end
-    
+
     it "removes old flaky tests from the logfile" do 
       output = "#{File.dirname(__FILE__)}/files/flaky_tests_output.log"
 

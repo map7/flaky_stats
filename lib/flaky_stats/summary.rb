@@ -45,7 +45,7 @@ module FlakyStats
       }
     end
 
-    def rollover_and_write(options)
+    def rollover_and_write(options = {})
       days = options[:days] || DEFAULT_ROLLOVER_DAYS
       output = options[:output] || @logfile
 
