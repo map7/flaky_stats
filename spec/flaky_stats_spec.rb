@@ -2,6 +2,7 @@ require "spec_helper"
 require 'date'
 
 RSpec.describe FlakyStats do
+  
   describe "#form_data" do
     before do
       @time=Time.now
@@ -27,6 +28,16 @@ RSpec.describe FlakyStats do
 
     it "includes lineno" do 
       expect(@flaky_tests.form_data(@failed_file).split(",")[2]).to eq("12")
+    end
+  end
+
+  describe "#run" do
+    before do 
+      @flaky_tests = FlakyStats::FlakyTests.new
+    end
+    
+    it "should print a heading on the screen" do 
+      expect{@flaky_tests.run()}.to output(/Rerunning failing tests in single thread/).to_stdout
     end
   end
 end

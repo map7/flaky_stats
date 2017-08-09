@@ -1,17 +1,9 @@
+require_relative 'output'
+
 module FlakyStats
   class FlakyTests
-
-    def line
-      puts "-------------------------------------------------------------------"
-    end
-
-    def heading(text)
-      puts "\n\n"
-      line
-      puts text
-      line
-    end
-
+    include Output
+    
     def initialize(options = {})
       @logfile = options[:logfile]
     end
@@ -21,7 +13,7 @@ module FlakyStats
     end
 
     # Run each failing test singularly and return a list of flaky tests.
-    def run(failed_files)
+    def run(failed_files = [])
       real_flaky_tests = []
       heading("Rerunning failing tests in single thread")
 
