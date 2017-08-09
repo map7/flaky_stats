@@ -30,7 +30,7 @@ module FlakyStats
     def display_flaky_summary
       heading "Flaky summary"
       calc_flaky_summary.each do |k,v|
-        puts "#{k} = #{v}" if v > 1
+        puts "#{v}\t#{k}" if v > 1
       end
       puts "\n"
     end
