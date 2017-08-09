@@ -1,6 +1,17 @@
 module FlakyStats
   class FlakyTests
 
+    def line
+      puts "-------------------------------------------------------------------"
+    end
+
+    def heading(text)
+      puts "\n\n"
+      line
+      puts text
+      line
+    end
+
     def initialize(options = {})
       @logfile = options[:logfile]
     end
@@ -12,13 +23,7 @@ module FlakyStats
     # Run each failing test singularly and return a list of flaky tests.
     def run(failed_files)
       real_flaky_tests = []
-
-      puts "\n\n"
-      puts "-------------------------------------------------------------------"
-      puts "Rerunning failing tests in single thread"
-      puts "-------------------------------------------------------------------"
-      
-      # sleep 10                   # Settle everything down.
+      heading("Rerunning failing tests in single thread")
 
       # Run all failing tests separately with '--format doc' on the end.
       failed_files.each do |failed_file|
