@@ -19,13 +19,10 @@ module FlakyStats
 
       # Run all failing tests separately with '--format doc' on the end.
       failed_files.each do |failed_file|
-        # sleep 2                   # Settle everything down.
         status = system("rspec --format doc #{failed_file[:filename]}")
 
         # This is a flaky test only, so record it
-        if status == true
-          real_flaky_tests << form_data(failed_file)
-        end
+        real_flaky_tests << form_data(failed_file) if status == true
       end
 
       return real_flaky_tests
