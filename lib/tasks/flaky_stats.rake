@@ -1,5 +1,6 @@
 require 'csv'
 
+ENV["RAILS_ENV"]="test"         # Force test environment
 LOGFILE=Rails.root + "log/flaky_tests.log"
 FAILING_LOG=Rails.root + "tmp/failing_specs.log"
 
