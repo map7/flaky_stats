@@ -15,14 +15,22 @@ module FlakyStats
     # Run each failing test singularly and return a list of flaky tests.
     def run(failed_files = [])
       real_flaky_tests = []
-      heading("Rerunning failing tests in single thread")
 
-      # Run all failing tests separately with '--format doc' on the end.
-      failed_files.each do |failed_file|
-        status = system("rspec --format doc #{failed_file[:filename]}")
+      if ENV['NO_FLAKY'] == "true"
+        heading("Skipping flaky tests")
+      else
+        heading("Rerunning failing tests in single thread!")
 
-        # This is a flaky test only, so record it
-        real_flaky_tests << form_data(failed_file) if status == true
+        sleep 2
+        system("sync")
+        
+        # Run all failing tests separately with '--format doc' on the end.
+        failed_files.each do |failed_file|
+          status = system("rspec --format doc #{failed_file[:filename]}")
+
+          # This is a flaky test only, so record it
+          real_flaky_tests << form_data(failed_file) if status == true
+        end
       end
 
       return real_flaky_tests
