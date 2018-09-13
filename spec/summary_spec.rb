@@ -29,7 +29,7 @@ RSpec.describe "Summary" do
       expect(File.readlines(@logfile).count).to eq(27)
       result = @summary.rollover
 
-      expect(result.count).to eq(15)
+      expect(result.count).to eq(16)
     end
   end
 
@@ -48,7 +48,7 @@ RSpec.describe "Summary" do
       expect(File.readlines(@logfile).count).to eq(27)
       @summary.rollover_and_write(output: output)
       
-      expect(File.readlines(output).count).to eq(15)
+      expect(File.readlines(output).count).to eq(16)
     end
   end
   
