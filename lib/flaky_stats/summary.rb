@@ -13,6 +13,7 @@ module FlakyStats
     def initialize(options)
       @failing_log = options[:failing_log]
       @flaky_tests_log = options[:flaky_tests_log]
+      @failed_files = options[:failed_files] || []
       @real_flaky_tests = options[:real_flaky_tests] || []
     end
 
@@ -39,15 +40,27 @@ module FlakyStats
 
     def display_current_flakies
       heading "Flakies which passed in a single thread"
+
       @real_flaky_tests.each do |flaky|
-        puts "#{flaky[1]}:#{flaky[2]}"
+        puts "#{flaky.split(",")[1]}:#{flaky.split(",")[2]}"
       end
+      puts "\n"
+    end
+
+    # failed_files=[{:filename=>"./spec/integration/divisions/edit_divisions_spec.rb", :lineno=>26},...]
+    # real_flaky_tests = ["2019-10-24 15:30:45 +1100,./spec/integration/reports/activity_statement_spec.rb,13,1",...]
+    def filter_error_files(failed_files, real_flaky_tests)
+      real_flaky_tests.each do |flaky|
+        failed_files.reject!{|error| error[:filename] == flaky.split(",")[1]}
+      end
+      return failed_files
     end
 
     def display_failed_tests
       heading "Failed tests"
-      # results = @flaky_tests_log.read_failing_log() # This gives the full list of error files
-      # results - @real_flaky_tests
+      real_errors = filter_error_files(@failed_files, @real_flaky_tests)
+      real_errors.each { |file| puts "#{file[:filename]}:#{file[:lineno]}"}
+      puts "\n"
     end
 
     def rollover(days = DEFAULT_ROLLOVER_DAYS)

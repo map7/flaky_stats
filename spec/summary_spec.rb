@@ -4,7 +4,15 @@ RSpec.describe "Summary" do
   before do
     @flaky_tests_log = "#{File.dirname(__FILE__)}/files/flaky_tests.log"
     @summary = FlakyStats::Summary.new(flaky_tests_log: @flaky_tests_log,
-                                       real_flaky_tests: [[Time.now,'./spec/integration/invoices/edit_invoices_spec.rb',1]])
+                                       failed_files: [
+                                         {filename:"./spec/integration/divisions/edit_divisions_spec.rb",
+                                          lineno: 26},
+                                         {filename:"./spec/integration/divisions/edit_divisions_spec.rb",
+                                          lineno: 26},
+                                         {filename:"./spec/integration/invoices/edit_invoices_spec.rb",
+                                          lineno: 1},
+                                       ],
+                                       real_flaky_tests: ["2019-10-24 15:30:45 +1100,./spec/integration/invoices/edit_invoices_spec.rb,13,1"])
   end
 
   describe "#calc_flaky_summary" do 
@@ -26,16 +34,34 @@ RSpec.describe "Summary" do
     end
 
     it "prints the list of flakies files" do
-      expect{@summary.display_current_flakies()}.to output(/\.\/spec\/integration\/invoices\/edit_invoices_spec\.rb/).to_stdout
+      expect{@summary.display_current_flakies()}.to output(/\.\/spec\/integration\/invoices\/edit_invoices_spec\.rb:13/).to_stdout
+    end
+
+    it "doesn't include the date" do 
+      expect{@summary.display_current_flakies()}.to_not output(/2019\-10\-24\ 15\:30\:45\ \+1100/).to_stdout
     end
   end
 
+  describe "#filter_error_files" do 
+    context "given two error files and one which is flaky" do 
+      it "returns everything but the flaky files" do 
+        result = @summary.filter_error_files([{filename: "a"}, {filename: "b"}], ["date,a"])
+        expect(result).to eq([{filename: "b"}])
+      end
+    end
+  end
+  
   describe "#display_failed_tests" do 
     it "prints heading 'Failed tests'" do 
       expect{@summary.display_failed_tests()}.to output(/Failed tests/).to_stdout
     end
 
     it "prints the list of failed files" do
+      expect{@summary.display_failed_tests()}.to output(/\.\/spec\/integration\/divisions\/edit_divisions_spec\.rb/).to_stdout
+    end
+
+    it "doesn't print flakies" do
+      expect{@summary.display_failed_tests()}.to_not output(/\.\/spec\/integration\/invoices\/edit_invoices_spec\.rb/).to_stdout
     end
   end
   

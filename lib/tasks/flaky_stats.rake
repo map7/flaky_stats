@@ -12,7 +12,7 @@ task :flaky_stats => :environment do  |t|
     logfile = FlakyStats::LogFile.new(failing_log: FAILING_LOG, logfile: LOGFILE)
     failed_files = logfile.read_failing_log()
 
-    # Run tests singularly
+    # Run tests singularly.
     flaky_tests = FlakyStats::FlakyTests.new(logfile: LOGFILE)
     real_flaky_tests = flaky_tests.run(failed_files)
 
@@ -22,6 +22,7 @@ task :flaky_stats => :environment do  |t|
     # Display summaries
     summary = FlakyStats::Summary.new(failing_log: FAILING_LOG,
                                       flaky_tests_log: LOGFILE,
+                                      failed_files: failed_files,
                                       real_flaky_tests: real_flaky_tests)
     summary.display_error_summary()
     summary.display_flaky_summary()
