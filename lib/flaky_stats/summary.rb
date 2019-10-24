@@ -37,6 +37,19 @@ module FlakyStats
       puts "\n"
     end
 
+    def display_current_flakies
+      heading "Flakies which passed in a single thread"
+      @real_flaky_tests.each do |flaky|
+        puts "#{flaky[1]}:#{flaky[2]}"
+      end
+    end
+
+    def display_failed_tests
+      heading "Failed tests"
+      # results = @flaky_tests_log.read_failing_log() # This gives the full list of error files
+      # results - @real_flaky_tests
+    end
+
     def rollover(days = DEFAULT_ROLLOVER_DAYS)
       lines = File.readlines(@flaky_tests_log)
       lines.reject{|line|
@@ -57,8 +70,8 @@ module FlakyStats
       }
 
       # Overwrite log file.
-      `cp #{@logfile} #{@logfile}.old`
-      `cp #{@logfile}.tmp #{@logfile}`
+      `cp #{@flaky_tests_log} #{@flaky_tests_log}.old`
+      `cp #{@flaky_tests_log}.tmp #{@flaky_tests_log}`
     end
 
     def reject_low_flaky_tests(data)

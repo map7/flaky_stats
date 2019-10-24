@@ -14,6 +14,32 @@ RSpec.describe "Summary" do
     end
   end
 
+  describe "#display_flaky_summary" do 
+    it "prints heading 'Flaky summary'" do
+      expect{@summary.display_flaky_summary()}.to output(/Flaky summary/).to_stdout
+    end
+  end
+
+  describe "#display_current_flakies" do 
+    it "prints heading 'Flakies which passed in a single thread'" do 
+      expect{@summary.display_current_flakies()}.to output(/Flakies which passed in a single thread/).to_stdout
+    end
+
+    it "prints the list of flakies files" do
+      expect{@summary.display_current_flakies()}.to output(/file_spec.rb/).to_stdout
+    end
+  end
+
+  describe "#display_failed_tests" do 
+    it "prints heading 'Failed tests'" do 
+      expect{@summary.display_failed_tests()}.to output(/Failed tests/).to_stdout
+    end
+
+    it "prints the list of failed files" do
+      
+    end
+  end
+  
   describe "#rollover" do
     before do
       Timecop.freeze(Time.local(2017, 8, 9, 16, 0, 0))

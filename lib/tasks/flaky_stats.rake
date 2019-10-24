@@ -25,6 +25,8 @@ task :flaky_stats => :environment do  |t|
                                       real_flaky_tests: real_flaky_tests)
     summary.display_error_summary()
     summary.display_flaky_summary()
+    summary.display_current_flakies()
+    summary.display_failed_tests()
 
     # Rollover logfile
     summary.rollover_and_write()
