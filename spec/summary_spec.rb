@@ -4,7 +4,7 @@ RSpec.describe "Summary" do
   before do
     @flaky_tests_log = "#{File.dirname(__FILE__)}/files/flaky_tests.log"
     @summary = FlakyStats::Summary.new(flaky_tests_log: @flaky_tests_log,
-                                       real_flaky_tests: [[Time.now,'file_spec.rb',1]])
+                                       real_flaky_tests: [[Time.now,'./spec/integration/invoices/edit_invoices_spec.rb',1]])
   end
 
   describe "#calc_flaky_summary" do 
@@ -26,7 +26,7 @@ RSpec.describe "Summary" do
     end
 
     it "prints the list of flakies files" do
-      expect{@summary.display_current_flakies()}.to output(/file_spec.rb/).to_stdout
+      expect{@summary.display_current_flakies()}.to output(/\.\/spec\/integration\/invoices\/edit_invoices_spec\.rb/).to_stdout
     end
   end
 
