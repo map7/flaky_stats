@@ -2,8 +2,8 @@ require "spec_helper"
 
 RSpec.describe "Summary" do
   before do
-    @logfile = "#{File.dirname(__FILE__)}/files/flaky_tests.log"
-    @summary = FlakyStats::Summary.new(flaky_tests_log: @logfile,
+    @flaky_tests_log = "#{File.dirname(__FILE__)}/files/flaky_tests.log"
+    @summary = FlakyStats::Summary.new(flaky_tests_log: @flaky_tests_log,
                                        real_flaky_tests: [[Time.now,'file_spec.rb',1]])
   end
 
@@ -36,7 +36,6 @@ RSpec.describe "Summary" do
     end
 
     it "prints the list of failed files" do
-      
     end
   end
   
@@ -52,7 +51,7 @@ RSpec.describe "Summary" do
     it "removes old flaky tests from the logfile" do 
       output = "#{File.dirname(__FILE__)}/files/flaky_tests_output.log"
 
-      expect(File.readlines(@logfile).count).to eq(27)
+      expect(File.readlines(@flaky_tests_log).count).to eq(27)
       result = @summary.rollover
 
       expect(result.count).to eq(16)
@@ -71,7 +70,7 @@ RSpec.describe "Summary" do
     it "removes old flaky tests from the logfile" do 
       output = "#{File.dirname(__FILE__)}/files/flaky_tests_output.log"
 
-      expect(File.readlines(@logfile).count).to eq(27)
+      expect(File.readlines(@flaky_tests_log).count).to eq(27)
       @summary.rollover_and_write(output: output)
       
       expect(File.readlines(output).count).to eq(16)
