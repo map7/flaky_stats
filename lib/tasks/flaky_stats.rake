@@ -20,7 +20,9 @@ task :flaky_stats => :environment do  |t|
     logfile.write_flaky_stats(real_flaky_tests)
 
     # Display summaries
-    summary = FlakyStats::Summary.new(failing_log: FAILING_LOG, logfile: LOGFILE)
+    summary = FlakyStats::Summary.new(failing_log: FAILING_LOG,
+                                      flaky_tests_log: LOGFILE,
+                                      real_flaky_tests: real_flaky_tests)
     summary.display_error_summary()
     summary.display_flaky_summary()
 

@@ -12,7 +12,8 @@ module FlakyStats
     
     def initialize(options)
       @failing_log = options[:failing_log]
-      @logfile = options[:logfile]
+      @flaky_tests_log = options[:flaky_tests_log]
+      @real_flaky_tests = options[:real_flaky_tests] || []
     end
 
     def display_error_summary()
@@ -22,7 +23,7 @@ module FlakyStats
 
     def calc_flaky_summary
       sum=Hash.new(0)
-      CSV.foreach(@logfile) do |row|
+      CSV.foreach(@flaky_tests_log) do |row|
         sum[row[1]]+=row[3].to_i
       end
       return order_stats(sum)
@@ -37,7 +38,7 @@ module FlakyStats
     end
 
     def rollover(days = DEFAULT_ROLLOVER_DAYS)
-      lines = File.readlines(@logfile)
+      lines = File.readlines(@flaky_tests_log)
       lines.reject{|line|
         flaky_date = Time.parse(line.split(",")[0]).to_date
         cutoff = Date.today - days
@@ -47,7 +48,7 @@ module FlakyStats
 
     def rollover_and_write(options = {})
       days = options[:days] || DEFAULT_ROLLOVER_DAYS
-      output = options[:output] || "#{@logfile}.tmp"
+      output = options[:output] || "#{@flaky_tests_log}.tmp"
 
       File.open(output, "w") {|file|
         rollover(days).each do |flaky|

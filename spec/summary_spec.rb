@@ -4,7 +4,8 @@ require 'byebug'
 RSpec.describe "Summary" do
   before do
     @logfile = "#{File.dirname(__FILE__)}/files/flaky_tests.log"
-    @summary = FlakyStats::Summary.new(logfile: @logfile)
+    @summary = FlakyStats::Summary.new(flaky_tests_log: @logfile,
+                                       real_flaky_tests: [[Time.now,'file_spec.rb',1]])
   end
 
   describe "#calc_flaky_summary" do 
