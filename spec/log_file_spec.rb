@@ -1,6 +1,18 @@
 require "spec_helper"
 
 RSpec.describe "LogFile" do
+
+  describe "#read_failing_log" do
+    before do 
+      @logfile = FlakyStats::LogFile.new(failing_log: "#{File.dirname(__FILE__)}/files/failing_specs.log")
+    end
+    
+    it "returns a list of failing tests" do 
+      results = @logfile.read_failing_log()
+      expect(results.count).to eq(12)
+    end
+  end
+  
   describe "get_error_info" do
     context "filename with lineno exists" do 
       before do 
