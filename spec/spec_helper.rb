@@ -1,5 +1,6 @@
 require "bundler/setup"
 require "flaky_stats"
+require 'byebug'
 require 'timecop'
 
 RSpec.configure do |config|
